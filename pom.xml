@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>terminal-utils</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <name>Terminal Utils</name>
     <description>Utility Classes for terminal interactions.</description>
