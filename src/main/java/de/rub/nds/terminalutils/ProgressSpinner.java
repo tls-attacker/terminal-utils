@@ -32,6 +32,9 @@ public final class ProgressSpinner {
     };
     private static final String[] SPINNER_FRAMES_DOS = {"|", "/", "-", "\\"};
     private static String[] SPINNER_FRAMES;
+    private static char DOTS_UTF_8 = '…';
+    private static char DOTS_DOS = '~';
+    private static char DOTS;
 
     private static volatile boolean firstTaskIsMeta = true;
     private static Thread spinnerThread;
@@ -147,10 +150,12 @@ public final class ProgressSpinner {
 
         if (System.out.charset().name().equalsIgnoreCase("UTF-8")) {
             SPINNER_FRAMES = SPINNER_FRAMES_UTF_8;
+            DOTS = DOTS_UTF_8;
             // hide cursor
             System.out.print("\u001B[?25l");
         } else {
             SPINNER_FRAMES = SPINNER_FRAMES_DOS;
+            DOTS = DOTS_DOS;
         }
 
         // Register shutdown hook to ensure cursor is restored
@@ -177,7 +182,7 @@ public final class ProgressSpinner {
             displayText = String.join(", ", spinnerTasks);
         }
         if (displayText.length() > 74) {
-            displayText = displayText.substring(0, 74) + "…";
+            displayText = displayText.substring(0, 74) + DOTS;
         }
         System.out.printf("  %-78s\r", frame + " " + displayText);
     }
