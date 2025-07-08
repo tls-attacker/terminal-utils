@@ -72,6 +72,7 @@ public final class ProgressSpinner {
                                         try {
                                             Thread.sleep(100);
                                         } catch (InterruptedException e) {
+                                            System.out.print("\u001B[?25h");
                                             Thread.currentThread().interrupt();
                                             break;
                                         }
@@ -151,6 +152,16 @@ public final class ProgressSpinner {
         } else {
             SPINNER_FRAMES = SPINNER_FRAMES_DOS;
         }
+
+        // Register shutdown hook to ensure cursor is restored
+        Runtime.getRuntime()
+                .addShutdownHook(
+                        new Thread(
+                                () -> {
+                                    if (System.out.charset().name().equalsIgnoreCase("UTF-8")) {
+                                        System.out.print("\u001B[?25h"); // Show cursor
+                                    }
+                                }));
     }
 
     private static void printSpinner(String frame) {
