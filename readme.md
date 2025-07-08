@@ -32,3 +32,5 @@ To use `terminal-utils` in your Maven project, include it as a dependency once t
   <artifactId>terminal-utils</artifactId>
   <version>1.0.0</version>
 </dependency>
+```
+
