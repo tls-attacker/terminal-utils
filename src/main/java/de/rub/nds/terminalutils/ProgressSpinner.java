@@ -64,6 +64,10 @@ public final class ProgressSpinner {
             return;
         }
 
+        if (System.out.charset().name().equalsIgnoreCase("UTF-8")) {
+            // hide cursor
+            System.out.print("\u001B[?25l");
+        }
         spinnerRunning.set(true);
         spinnerThread =
                 Thread.ofVirtual()
@@ -151,8 +155,6 @@ public final class ProgressSpinner {
         if (System.out.charset().name().equalsIgnoreCase("UTF-8")) {
             SPINNER_FRAMES = SPINNER_FRAMES_UTF_8;
             DOTS = DOTS_UTF_8;
-            // hide cursor
-            System.out.print("\u001B[?25l");
         } else {
             SPINNER_FRAMES = SPINNER_FRAMES_DOS;
             DOTS = DOTS_DOS;
